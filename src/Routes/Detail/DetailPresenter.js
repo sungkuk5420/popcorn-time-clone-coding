@@ -119,7 +119,7 @@ const DetailPresenter = ({ result, loading, error }) =>{
     <Container>
       <Helmet>
         <title>
-          {result.original_title ? result.original_title : result.original_name}{" "}
+          {result.original_title ? result.original_title : ''}{" "}
           | Nomflix
         </title>
       </Helmet>
@@ -163,19 +163,19 @@ const DetailPresenter = ({ result, loading, error }) =>{
           </ItemContainer>
           <Overview>{result.overview}</Overview>
           <Tab>
-            <Link to={`/show/${result.id}/Youtube`} onClick={() => changeItem(0)}>
+            <Link to={`./${result.id}/Youtube`} onClick={() => changeItem(0)}>
               <TabItem>Youtube</TabItem>
             </Link>
-            <Link to={`/show/${result.id}/Production`} onClick={() => changeItem(1)}>
+            <Link to={`./${result.id}/Production`} onClick={() => changeItem(1)}>
               <TabItem>Production Company & Countries</TabItem>
             </Link>
             {match&&(
-            <Link to={`/show/${result.id}/Created`} onClick={() => changeItem(3)}>
+            <Link to={`./${result.id}/Created`} onClick={() => changeItem(3)}>
               <TabItem>Created By</TabItem>
             </Link>
             )}
             {match&&(
-            <Link to={`/show/${result.id}/Seasons`} onClick={() => changeItem(2)}>
+            <Link to={`./${result.id}/Seasons`} onClick={() => changeItem(2)}>
               <TabItem>TV Seasons</TabItem>
             </Link>
             )}
@@ -183,20 +183,20 @@ const DetailPresenter = ({ result, loading, error }) =>{
           {currentIndex == 0 && result.videos.results &&result.videos.results
             .filter(item => item.site === 'YouTube')
             .map(videoResult => (
-                <Youtube video={videoResult}></Youtube>
+                <Youtube key={videoResult.key} video={videoResult}></Youtube>
           ))}
           {currentIndex == 1 && result.production_companies && result.production_companies.map(company => (
-            <Production company={company}></Production>
+            <Production key={company.name} company={company}></Production>
           ))}
             
           {currentIndex == 1 && result.production_countries && result.production_countries.map(country => (
-            <Country country={country}></Country>
+            <Country key={country.name} country={country}></Country>
           ))}
           {currentIndex == 2 && result.seasons && result.seasons.map(season => (
-            <Seasons season={season}></Seasons>
+            <Seasons key={season.name} season={season}></Seasons>
           ))}
           {currentIndex == 3 && result.created_by && result.created_by.map(creator => (
-            <Created creator={creator}></Created>
+            <Created key={creator.name}creator={creator}></Created>
           ))}
         </Data>
       </Content>
