@@ -67,6 +67,20 @@ const Overview = styled.p`
   line-height: 1.5;
   width: 50%;
 `;
+const ImdbButton = styled.a`
+  all: unset;
+  width: 20px;
+  height: 10px;
+  background-color: rgb(245, 197, 24);
+  color: rgb(0, 0, 0);
+  font-weight: 900;
+  text-transform: capitalize;
+  box-sizing: border-box;
+  cursor: pointer;
+  border-radius: 5px;
+  padding: 2px 5px;
+  margin-left:10px;
+`;
 
 const DetailPresenter = ({ result, loading, error }) =>
   loading ? (
@@ -120,8 +134,10 @@ const DetailPresenter = ({ result, loading, error }) =>
                     : `${genre.name} / `
                 )}
             </Item>
+            <ImdbButton href={`https://www.imdb.com/title/${result.imdb_id?result.imdb_id:result.external_ids.imdb_id}`} class="imdb-button">imdb</ImdbButton>
           </ItemContainer>
           <Overview>{result.overview}</Overview>
+          
         </Data>
       </Content>
     </Container>
