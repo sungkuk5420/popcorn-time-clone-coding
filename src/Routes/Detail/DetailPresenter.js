@@ -8,7 +8,7 @@ import Created from "../Created";
 import Country from "../Country";
 import Youtube from "../Youtube";
 import Seasons from "../Seasons";
-import { useRouteMatch, Link, Route } from "react-router-dom";
+// import { useRouteMatch, Link, Route } from "react-router-dom";
 
 const Container = styled.div`
   height: calc(100vh - 50px);
@@ -97,8 +97,8 @@ const TabItem = styled.li`
 `;
 
 const DetailPresenter = ({ result, loading, error }) =>{
-  const match = useRouteMatch("/show/:id");
-  const match2 = useRouteMatch("/movie/:id");
+  // const match = useRouteMatch("/show/:id");
+  // const match2 = useRouteMatch("/movie/:id");
 	const useTabs = () => {
 		const [currentIndex, setCurrentIndex] = useState(0);
 		return {
@@ -169,16 +169,12 @@ const DetailPresenter = ({ result, loading, error }) =>{
             <Link to={`./${result.id}/Production`} onClick={() => changeItem(1)}>
               <TabItem>Production Company & Countries</TabItem>
             </Link>
-            {match&&(
             <Link to={`./${result.id}/Created`} onClick={() => changeItem(3)}>
               <TabItem>Created By</TabItem>
             </Link>
-            )}
-            {match&&(
             <Link to={`./${result.id}/Seasons`} onClick={() => changeItem(2)}>
               <TabItem>TV Seasons</TabItem>
             </Link>
-            )}
           </Tab>
           {currentIndex == 0 && result.videos.results &&result.videos.results
             .filter(item => item.site === 'YouTube')
