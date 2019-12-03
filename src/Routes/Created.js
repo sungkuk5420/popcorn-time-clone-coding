@@ -1,15 +1,8 @@
 import React, { useState, useCallback, useEffect } from "react";
-import Loader from "../Components/Loader";
-
-const Created = () => {
-const [loading, setLoading] = useState(false);
+const Created = ({creator}) => {
   return (
     <>
-      {loading ? (
-        <Loader />
-      ) : (
-       <div>Created</div>
-      )}
+       <div>{creator.name}</div>
     </>
   );
 };

@@ -1,14 +1,18 @@
 import React, { useState, useCallback, useEffect } from "react";
 import Loader from "../Components/Loader";
 
-const Youtube = () => {
+const Youtube = ({video}) => {
 const [loading, setLoading] = useState(false);
   return (
     <>
       {loading ? (
         <Loader />
       ) : (
-       <div>Youtube</div>
+       <>
+       <iframe width="420" height="315"
+        src={"https://www.youtube.com/embed/"+video.key}>
+        </iframe>
+       </>
       )}
     </>
   );

@@ -1,15 +1,14 @@
 import React, { useState, useCallback, useEffect } from "react";
-import Loader from "../Components/Loader";
-
-const Seasons = () => {
-const [loading, setLoading] = useState(false);
+import styled from "styled-components";
+const Image = styled.img`
+width:100px;
+`;
+const Seasons = ({season}) => {
   return (
     <>
-      {loading ? (
-        <Loader />
-      ) : (
-       <div>Seasons</div>
-      )}
+       <div>{season.name}
+       <Image src={"https://image.tmdb.org/t/p/w500"+season.poster_path}/>
+       </div>
     </>
   );
 };

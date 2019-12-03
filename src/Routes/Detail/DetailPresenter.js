@@ -1,10 +1,11 @@
-import React from "react";
+import React, { useState, useCallback, useEffect } from "react";
 import PropTypes from "prop-types";
 import styled from "styled-components";
 import Helmet from "react-helmet";
 import Loader from "Components/Loader";
 import Production from "../Production";
 import Created from "../Created";
+import Country from "../Country";
 import Youtube from "../Youtube";
 import Seasons from "../Seasons";
 import { useRouteMatch, Link, Route } from "react-router-dom";
@@ -95,7 +96,18 @@ const TabItem = styled.li`
   padding: 10px;
 `;
 
-const DetailPresenter = ({ result, loading, error }) =>
+const DetailPresenter = ({ result, loading, error }) =>{
+  const match = useRouteMatch("/show/:id");
+  const match2 = useRouteMatch("/movie/:id");
+	const useTabs = () => {
+		const [currentIndex, setCurrentIndex] = useState(0);
+		return {
+			currentIndex: currentIndex,
+			changeItem: setCurrentIndex
+		};
+	};
+	const { currentIndex, changeItem } = useTabs(0);
+  return (
   loading ? (
     <>
       <Helmet>
@@ -151,28 +163,46 @@ const DetailPresenter = ({ result, loading, error }) =>
           </ItemContainer>
           <Overview>{result.overview}</Overview>
           <Tab>
-            <Link to={`/show/${result.id}/Youtube`}>
+            <Link to={`/show/${result.id}/Youtube`} onClick={() => changeItem(0)}>
               <TabItem>Youtube</TabItem>
             </Link>
-            <Link to={`/show/${result.id}/Production`}>
-              <TabItem>Production Company</TabItem>
+            <Link to={`/show/${result.id}/Production`} onClick={() => changeItem(1)}>
+              <TabItem>Production Company & Countries</TabItem>
             </Link>
-            <Link to={`/show/${result.id}/Created`}>
+            {match&&(
+            <Link to={`/show/${result.id}/Created`} onClick={() => changeItem(3)}>
               <TabItem>Created By</TabItem>
             </Link>
-            <Link to={`/show/${result.id}/Seasons`}>
-              <TabItem>Seasons</TabItem>
+            )}
+            {match&&(
+            <Link to={`/show/${result.id}/Seasons`} onClick={() => changeItem(2)}>
+              <TabItem>TV Seasons</TabItem>
             </Link>
+            )}
           </Tab>
-          <Route path="/show/:id/youtube" component={Youtube} />
-          <Route path="/show/:id/production" component={Production} />
-          <Route path="/show/:id/created" component={Created} />
-          <Route path="/show/:id/seasons" component={Seasons} />
+          {currentIndex == 0 && result.videos.results &&result.videos.results
+            .filter(item => item.site === 'YouTube')
+            .map(videoResult => (
+                <Youtube video={videoResult}></Youtube>
+          ))}
+          {currentIndex == 1 && result.production_companies && result.production_companies.map(company => (
+            <Production company={company}></Production>
+          ))}
+            
+          {currentIndex == 1 && result.production_countries && result.production_countries.map(country => (
+            <Country country={country}></Country>
+          ))}
+          {currentIndex == 2 && result.seasons && result.seasons.map(season => (
+            <Seasons season={season}></Seasons>
+          ))}
+          {currentIndex == 3 && result.created_by && result.created_by.map(creator => (
+            <Created creator={creator}></Created>
+          ))}
         </Data>
       </Content>
     </Container>
-  );
-
+  ));
+}
 DetailPresenter.propTypes = {
   result: PropTypes.object,
   loading: PropTypes.bool.isRequired,

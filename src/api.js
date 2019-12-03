@@ -41,5 +41,6 @@ export const tvApi = {
       params: {
         query: encodeURIComponent(term)
       }
-    })
+    }),
+    getVideos: id => api.get(`tv/${id}/videos`)
 };

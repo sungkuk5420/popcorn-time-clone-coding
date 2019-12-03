@@ -1,15 +1,13 @@
 import React, { useState, useCallback, useEffect } from "react";
 import Loader from "../Components/Loader";
 
-const Production = () => {
-const [loading, setLoading] = useState(false);
+const Production = ({company}) => {
   return (
     <>
-      {loading ? (
-        <Loader />
-      ) : (
-       <div>Production</div>
-      )}
+        {company&& (
+       <div>{company.name} / 
+       {company.origin_country}</div>
+       )}
     </>
   );
 };
