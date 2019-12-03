@@ -3,6 +3,11 @@ import PropTypes from "prop-types";
 import styled from "styled-components";
 import Helmet from "react-helmet";
 import Loader from "Components/Loader";
+import Production from "../Production";
+import Created from "../Created";
+import Youtube from "../Youtube";
+import Seasons from "../Seasons";
+import { useRouteMatch, Link, Route } from "react-router-dom";
 
 const Container = styled.div`
   height: calc(100vh - 50px);
@@ -81,6 +86,14 @@ const ImdbButton = styled.a`
   padding: 2px 5px;
   margin-left:10px;
 `;
+const Tab = styled.ul`
+  display:flex;
+`;
+
+const TabItem = styled.li`
+  border: 1px solid #ddd;
+  padding: 10px;
+`;
 
 const DetailPresenter = ({ result, loading, error }) =>
   loading ? (
@@ -137,7 +150,24 @@ const DetailPresenter = ({ result, loading, error }) =>
             <ImdbButton href={`https://www.imdb.com/title/${result.imdb_id?result.imdb_id:result.external_ids.imdb_id}`} class="imdb-button">imdb</ImdbButton>
           </ItemContainer>
           <Overview>{result.overview}</Overview>
-          
+          <Tab>
+            <Link to={`/show/${result.id}/Youtube`}>
+              <TabItem>Youtube</TabItem>
+            </Link>
+            <Link to={`/show/${result.id}/Production`}>
+              <TabItem>Production Company</TabItem>
+            </Link>
+            <Link to={`/show/${result.id}/Created`}>
+              <TabItem>Created By</TabItem>
+            </Link>
+            <Link to={`/show/${result.id}/Seasons`}>
+              <TabItem>Seasons</TabItem>
+            </Link>
+          </Tab>
+          <Route path="/show/:id/youtube" component={Youtube} />
+          <Route path="/show/:id/production" component={Production} />
+          <Route path="/show/:id/created" component={Created} />
+          <Route path="/show/:id/seasons" component={Seasons} />
         </Data>
       </Content>
     </Container>
