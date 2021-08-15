@@ -1,9 +1,10 @@
 {
-  "name": "nomflix",
+  "name": "popcorn-time-clone-coding",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "axios": "^0.18.0",
+    "acorn": "^8.4.1",
+    "axios": "^0.21.1",
     "gh-pages": "^2.0.1",
     "prop-types": "^15.6.2",
     "react": "^16.6.3",
@@ -25,7 +26,6 @@
   "eslintConfig": {
     "extends": "react-app"
   },
-  "homepage": "https://hungry-noether-8ac1d6.netlify.com",
   "browserslist": [
     ">0.2%",
     "not dead",
