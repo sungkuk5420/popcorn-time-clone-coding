@@ -29,7 +29,7 @@ const TVPresenter = ({ topRated, popular, airingToday, loading, error }) => (
                 imageUrl={show.poster_path}
                 title={show.original_name}
                 rating={show.vote_average}
-                year={show.first_air_date.substring(0, 4)}
+                year={show.first_air_date}
               />
             ))}
           </Section>
@@ -43,23 +43,26 @@ const TVPresenter = ({ topRated, popular, airingToday, loading, error }) => (
                 imageUrl={show.poster_path}
                 title={show.original_name}
                 rating={show.vote_average}
-                year={show.first_air_date.substring(0, 4)}
+                year={show.first_air_date}
               />
             ))}
           </Section>
         )}
         {airingToday && airingToday.length > 0 && (
           <Section title="Airing Today">
-            {airingToday.map(show => (
-              <Poster
-                key={show.id}
-                id={show.id}
-                imageUrl={show.poster_path}
-                title={show.original_name}
-                rating={show.vote_average}
-                year={show.first_air_date.substring(0, 4)}
-              />
-            ))}
+            {airingToday.map(show => {
+              console.log(show.first_air_date)
+              return (
+                <Poster
+                  key={show.id}
+                  id={show.id}
+                  imageUrl={show.poster_path}
+                  title={show.original_name}
+                  rating={show.vote_average}
+                  year={show.first_air_date}
+                />
+              )
+            })}
           </Section>
         )}
         {error && <Message color="#e74c3c" text={error} />}
